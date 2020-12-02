@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="text-center">Crear anuncio</h1>
+    <form [formGroup]="adForm" (ngSubmit)="createAd()">
+      <div class="form-group">
+        <label>Titulo del anuncio</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          placeholder="Titulo del anuncio"
+        />
+      </div>
+      <div class="form-group">
+        <label>Categoria</label>
+        <select class="form-control">
+          <option>Categoria</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea
+          class="form-control"
+          formControlName="description"
+          rows="3"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label>Imagen</label>
+        <input type="file" class="form-control-file" />
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Email"
+        />
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="phone"
+          placeholder="Numero de telefono"
+        />
+      </div>
+      <div class="form-group">
+        <label>Direccion</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="direction"
+          placeholder="Direccion"
+        />
+      </div>
+      <div class="form-group">
+        <label>Pagina web</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="web"
+          placeholder="Direccion de pagina web"
+        />
+      </div>
+      <button class="btn btn-primary btn-long btn-block">
+        Publicar anuncio
+      </button>
+    </form>
+  </div>
+</div>

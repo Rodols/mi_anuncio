@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="text-center">Crear categoria</h1>
+    <form [formGroup]="categorieForm" (ngSubmit)="createCategorie()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Categoria</label>
+        <input
+          type="text-area"
+          class="form-control"
+          formControlName="categorie"
+          placeholder="Nombre de la categoria"
+        />
+      </div>
+      <button class="btn btn-primary btn-long btn-block">
+        Crear categoria
+      </button>
+    </form>
+  </div>
+</div>
