@@ -1,0 +1,30 @@
+<table class="table mt-2">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Anuncio</th>
+      <th scope="col">Contacto</th>
+      <th scope="col">Categoria</th>
+      <th>Imagen</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ad of ads">
+      <td>
+        <span class="title">{{ ad.title }}</span> <br />
+        {{ ad.description }}
+      </td>
+      <td>
+        {{ ad.phone }} <br />
+        {{ ad.direction }} <br />
+        {{ ad.web }} <br />
+        {{ ad.email }}
+      </td>
+      <td>{{ ad.categorie }}</td>
+      <td><img src="{{ ad.imageUrl }}" width="100" /></td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteAd(ad)">Borrar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

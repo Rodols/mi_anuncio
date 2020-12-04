@@ -17,6 +17,7 @@ import { AdsComponent } from './components/ads/ads.component';
 import { AdComponent } from './components/admin/ad/ad.component';
 import { CategorieComponent } from './components/admin/categorie/categorie.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AdsListComponent } from './components/admin/ads-list/ads-list.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AdminComponent } from './components/admin/admin.component';
     CategorieComponent,
     AdminComponent,
     AdComponent,
+    AdsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { AdminComponent } from './components/admin/admin.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
   ],

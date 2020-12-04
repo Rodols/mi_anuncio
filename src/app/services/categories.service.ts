@@ -3,13 +3,10 @@ import { Observable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-
-export interface Categorie {
-  id: string;
-  name: string;
-}
+import { Categorie } from '../Models/categorie.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,24 +22,25 @@ export class CategoriesService {
     this.categoriesCollection = afs.collection<Categorie>('categories');
   }
 
-  saveCategorie(name: string) {
-    const id = this.afs.createId();
-    const categ: Categorie = { id, name };
-    this.categoriesCollection.add(categ).then(() => {
-      alert('Alerta guardada');
-    });
+  async saveCategorie(categorie: Categorie) {
+    try {
+      this.categoriesCollection.add(categorie);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   getCategorie(): Observable<Categorie[]> {
-    this.categorie = this.categorieCollection.snapshotChanges().pipe(
+    this.categories = this.categoriesCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Categorie;
+          data.id = a.payload.doc.id;
           return data;
         })
       )
     );
-    return this.categorie;
+    return this.categories;
   }
 
   getAllCategories(): Observable<Categorie[]> {
@@ -50,10 +48,19 @@ export class CategoriesService {
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Categorie;
+          data.id = a.payload.doc.id;
           return data;
         })
       )
     );
     return this.categories;
+  }
+
+  async deleteCategorie(id: string) {
+    try {
+      return await this.categorieCollection.doc(id).delete();
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

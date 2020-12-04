@@ -1,21 +1,28 @@
 <div class="card">
   <div class="card-body">
-    <h1 class="text-center">Crear anuncio</h1>
+    <h3 class="text-center">Crear anuncio</h3>
     <form [formGroup]="adForm" (ngSubmit)="createAd()">
-      <div class="form-group">
-        <label>Titulo del anuncio</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="title"
-          placeholder="Titulo del anuncio"
-        />
-      </div>
-      <div class="form-group">
-        <label>Categoria</label>
-        <select class="form-control">
-          <option>Categoria</option>
-        </select>
+      <div class="row">
+        <div class="col form-group">
+          <label>Titulo del anuncio</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="title"
+            placeholder="Titulo del anuncio"
+          />
+        </div>
+        <div class="col form-group">
+          <label>Categoria</label>
+          <select class="form-control" formControlName="categorie">
+            <option
+              [value]="categorie.name"
+              *ngFor="let categorie of categories"
+            >
+              {{ categorie.name }}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="form-group">
         <label>Descripción</label>
@@ -27,44 +34,70 @@
       </div>
       <div class="form-group">
         <label>Imagen</label>
-        <input type="file" class="form-control-file" />
-      </div>
-      <div class="form-group">
-        <label>Correo electrónico</label>
         <input
-          type="email"
-          class="form-control"
-          formControlName="email"
-          placeholder="Email"
+          type="file"
+          class="form-control-file"
+          formControlName="image"
+          accept=".png, .jpg, .mp4"
+          class="form-control-file"
+          (change)="onUploadImg($event)"
         />
+        <div *ngIf="file" class="mt-2">
+          <div
+            *ngIf="file.uploadPercent | async as uploadPercent2"
+            class="progress"
+          >
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              [ngStyle]="{ width: uploadPercent2 + '%' }"
+            >
+              {{ uploadPercent2 | number: "1.0-0" }} %
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Phone</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="phone"
-          placeholder="Numero de telefono"
-        />
+      <div class="row">
+        <div class="col form-group">
+          <label>Correo electrónico</label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Email"
+          />
+        </div>
+        <div class="col form-group">
+          <label>Phone</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="phone"
+            placeholder="Numero de telefono"
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label>Direccion</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="direction"
-          placeholder="Direccion"
-        />
+      <div class="row">
+        <div class="col form-group">
+          <label>Direccion</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="direction"
+            placeholder="Direccion"
+          />
+        </div>
+        <div class="col form-group">
+          <label>Pagina web</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="web"
+            placeholder="Direccion de pagina web"
+          />
+        </div>
       </div>
-      <div class="form-group">
-        <label>Pagina web</label>
-        <input
-          type="text"
-          class="form-control"
-          formControlName="web"
-          placeholder="Direccion de pagina web"
-        />
-      </div>
+
       <button class="btn btn-primary btn-long btn-block">
         Publicar anuncio
       </button>

@@ -4,8 +4,10 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { Ad } from 'src/app/Models/ad.interface';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { FileItem } from '../Models/file-item';
 
 @Injectable({
   providedIn: 'root',
@@ -13,26 +15,59 @@ import { Ad } from 'src/app/Models/ad.interface';
 export class AdService {
   public ads: Observable<Ad[]>;
   public ad: Observable<Ad[]>;
-  private alertsCollection: AngularFirestoreCollection<Ad>;
-  private alertCollection: AngularFirestoreCollection<Ad>;
-  constructor(private afs: AngularFirestore) {
-    this.alertCollection = afs.collection<Ad>('ads', (ref) =>
+  private adsCollection: AngularFirestoreCollection<Ad>;
+  private adCollection: AngularFirestoreCollection<Ad>;
+  private MEDIA_STORAGE_PATH = 'ImagesAds';
+  constructor(
+    private afs: AngularFirestore,
+    private storage: AngularFireStorage
+  ) {
+    this.adCollection = afs.collection<Ad>('ads', (ref) =>
       ref.orderBy('dateCreated', 'desc')
     );
-    this.alertsCollection = afs.collection<Ad>('ads');
+    this.adsCollection = afs.collection<Ad>('ads');
+  }
+
+  private generateFilename(name: string): string {
+    return `${this.MEDIA_STORAGE_PATH}/${new Date().getTime()}_${name}`;
+  }
+
+  onUpLoadImage(file: FileItem, ad: Ad) {
+    file.uploading = true;
+
+    const filepath = this.generateFilename(file.name);
+    const fileRef = this.storage.ref(filepath);
+    const task = this.storage.upload(filepath, file);
+
+    file.uploadPercent = task.percentageChanges();
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          file.downloadURL = fileRef.getDownloadURL();
+          file.uploading = false;
+          fileRef.getDownloadURL().subscribe((urlImage) => {
+            if (urlImage) {
+              file.uploading = false;
+              ad.imageUrl = urlImage.toString();
+              ad.image = filepath;
+              this.saveAd(ad);
+            }
+          });
+        })
+      )
+      .subscribe();
   }
 
   saveAd(adData: Ad) {
     const date = new Date();
     const time = date.getTime();
     adData.dateCreated = time;
-    this.alertsCollection.add(adData).then(() => {
-      alert('Anuncio guardado');
-    });
+    this.adsCollection.add(adData);
   }
 
   getAd(): Observable<Ad[]> {
-    this.ad = this.alertCollection.snapshotChanges().pipe(
+    this.ad = this.adCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Ad;
@@ -44,14 +79,27 @@ export class AdService {
   }
 
   getAllAds(): Observable<Ad[]> {
-    this.ads = this.alertsCollection.snapshotChanges().pipe(
+    this.ads = this.adsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Ad;
+          data.id = a.payload.doc.id;
           return data;
         })
       )
     );
     return this.ads;
+  }
+
+  deleteAd(ad: Ad) {
+    return this.adCollection
+      .doc(ad.id)
+      .delete()
+      .then(() => this.deleteImageAd(ad));
+  }
+
+  deleteImageAd(ad: Ad) {
+    const storeRef = this.storage.ref(ad.image);
+    return storeRef.delete();
   }
 }
