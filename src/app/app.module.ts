@@ -18,6 +18,7 @@ import { AdComponent } from './components/admin/ad/ad.component';
 import { CategorieComponent } from './components/admin/categorie/categorie.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AdsListComponent } from './components/admin/ads-list/ads-list.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AdsListComponent } from './components/admin/ads-list/ads-list.component
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

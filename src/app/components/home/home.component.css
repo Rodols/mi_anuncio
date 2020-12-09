@@ -1,0 +1,97 @@
+.adsList {
+  width: 100%;
+  display: block;
+  display: inline-block;
+  display: flex;
+  overflow-x: hidden;
+}
+
+.ad {
+  transition: 0.7s;
+}
+
+.ad:hover {
+  opacity: 0.8;
+}
+
+.card {
+  width: 15rem;
+  height: 25rem;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+h2 {
+  text-transform: uppercase;
+}
+
+.card img {
+  width: 100%;
+  height: 40%;
+}
+
+.card-title {
+  font-size: 1.2rem;
+}
+
+.carousel-caption {
+  background-color: black;
+  opacity: 0.7;
+  border: solid 1px black;
+  border-radius: 5px;
+}
+
+.carousel-item img {
+  height: 30rem;
+}
+
+.slick-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+.btn-arrow-prev,
+.btn-arrow-next {
+  border: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 40px;
+  height: 20%;
+  top: calc(50%-25%);
+  line-height: 40px;
+  width: 50px;
+  color: white;
+}
+
+.btn-arrow-prev {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  z-index: 1;
+  left: 0;
+}
+
+.btn-arrow-next {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  right: 0;
+}
+
+.btn-arrow-next:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.btn-arrow-prev:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-width: 800px) {
+  .carousel-item img {
+    height: 12rem;
+  }
+}
