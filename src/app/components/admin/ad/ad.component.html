@@ -97,8 +97,59 @@
           />
         </div>
       </div>
+      <!--Empezamos con los mapas-->
+      <div class="mapa-search">
+        <div class="form-group">
+          <label>Buscar lugar</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Ingresa una direccion y selecciona una opcion"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="off"
+            type="text"
+            #search
+          />
+        </div>
 
-      <button class="btn btn-primary btn-long btn-block">
+        <agm-map
+          [latitude]="lat"
+          [longitude]="lng"
+          [zoom]="zoom"
+          [mapTypeId]="mapTypeId"
+        >
+          <agm-marker
+            [latitude]="lat"
+            [longitude]="lng"
+            [markerDraggable]="false"
+          ></agm-marker>
+        </agm-map>
+      </div>
+      <div class="row">
+        <div class="col form-group">
+          <label>Longitud</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="longitud"
+            placeholder="Longitud"
+            [value]="lng"
+          />
+        </div>
+        <div class="col form-group">
+          <label>Latitud</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="latitud"
+            placeholder="Direccion de pagina web"
+            [value]="lat"
+          />
+        </div>
+      </div>
+      <!--Termina la parte de los mapas-->
+      <button class="btn btn-primary btn-long btn-block mt-3">
         Publicar anuncio
       </button>
     </form>

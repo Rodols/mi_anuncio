@@ -7,6 +7,8 @@ export interface Ad {
   image?: string;
   email?: string;
   direction?: string;
+  longitud?: number;
+  latitud?: number;
   phone?: number;
   web?: string;
   dateCreated?: number;

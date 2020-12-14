@@ -43,7 +43,7 @@
 <div class="carousel-ads mt-5">
   <h2>Ultimos anuncios</h2>
   <div class="slick-list" id="slick-list" #slickList>
-    <button class="btn-arrow-prev" (click)="buttonPrevClick()">
+    <button class="btn-arrow-prev" (click)="buttonNextClick()">
       <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
     </button>
     <div #adsList class="adsList">
@@ -57,12 +57,13 @@
                 {{ ad.description.substring(40, -1) }}...</span
               >
             </p>
+            <a [href]="ad.web">{{ ad.web.substring(20, -1) }}</a>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
     </div>
-    <button class="btn-arrow-next" (click)="buttonNextClick()">
+    <button class="btn-arrow-next" (click)="buttonPrevClick()">
       <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
     </button>
   </div>

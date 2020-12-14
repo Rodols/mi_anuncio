@@ -6,7 +6,7 @@ tbody {
 }
 
 .table-fixed tbody {
-  height: 330px;
+  height: 830px;
   overflow-y: auto;
 }
 

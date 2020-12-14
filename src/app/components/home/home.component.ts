@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -11,6 +12,8 @@ import { Ad } from 'src/app/Models/ad.interface';
 import { AdService } from 'src/app/services/ad.service';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { MapsAPILoader } from '@agm/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -28,36 +31,50 @@ export class HomeComponent implements OnInit {
   adCarousel: Ad;
   numberAds = 0;
   cont = 0;
+  //Mapas
+  @ViewChild('search')
+  public searchElementRef: ElementRef;
+
+  zoom = 18;
+  lat = 51.678418;
+  lng = 7.809007;
+  latLongs: any = [];
+  latLong: any = {};
+  address: string;
+  mapTypeId = 'hybrid';
+  public searchControl: FormControl;
 
   constructor(private adSv: AdService, private renderer: Renderer2) {}
 
   ngOnInit() {
     this.getAllads();
+    //creamos el mapa por medio del div con id mapita
   }
 
   buttonPrevClick() {
-    // console.log(this.cont, this.adCards.length);
-    if (this.cont != this.adCards.length * -1) {
+    //console.log('prev', this.cont, this.adCards.length);
+    //console.log(this.adCards.length * -1 + 2);
+    if (this.cont != this.adCards.length * -1 + 1) {
       this.cont--;
       this.adCards.forEach((adCard) => {
         this.renderer.setStyle(
           adCard.nativeElement,
           'transform',
-          `translate(${this.cont * 10}rem)`
+          `translate(${this.cont * 16}rem)`
         );
       });
     }
   }
 
   buttonNextClick() {
-    // console.log(this.cont, this.adCards.length);
+    //console.log('next', this.cont, this.adCards.length);
     if (this.cont <= -1) {
       this.cont++;
       this.adCards.forEach((adCard) => {
         this.renderer.setStyle(
           adCard.nativeElement,
           'transform',
-          `translate(${this.cont * 10}rem)`
+          `translate(${this.cont * 16}rem)`
         );
       });
     }

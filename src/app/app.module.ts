@@ -19,6 +19,8 @@ import { CategorieComponent } from './components/admin/categorie/categorie.compo
 import { AdminComponent } from './components/admin/admin.component';
 import { AdsListComponent } from './components/admin/ads-list/ads-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AgmCoreModule } from '@agm/core';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -36,12 +38,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDxAyJCf9jUCg-jcRrxGt8cy2ja5VEYZyM',
+      libraries: ['places'],
+    }),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
