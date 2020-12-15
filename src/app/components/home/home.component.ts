@@ -13,6 +13,7 @@ import { AdService } from 'src/app/services/ad.service';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  faMarker = faMapMarkerAlt;
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
   @ViewChild('buttonPrev') buttonPrev: ElementRef;
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
   adListCarousel: Ad[] = [];
   ads: Ad[] = [];
   adCarousel: Ad;
+  ad: Ad;
   numberAds = 0;
   cont = 0;
   //Mapas
@@ -92,5 +95,9 @@ export class HomeComponent implements OnInit {
         i++;
       });
     });
+  }
+
+  viewDetail(ad: Ad) {
+    this.ad = ad;
   }
 }

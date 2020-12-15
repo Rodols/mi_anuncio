@@ -9,7 +9,6 @@
 .card {
   margin: 1rem;
   width: 15rem;
-  height: 30rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,8 +16,7 @@
 
 .card img {
   padding: 0.5rem;
-  width: 80%;
-  height: 40%;
+  height: 10rem;
 }
 
 .card-title {

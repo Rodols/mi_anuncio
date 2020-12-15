@@ -57,14 +57,16 @@
                 {{ ad.description.substring(30, -1) }}...</span
               >
             </p>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <a [href]="ad.web">{{ ad.web.substring(20, -1) }}</a>
-              </li>
-              <li class="list-group-item">
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </li>
-            </ul>
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#modalAd"
+              (click)="viewDetail(ad)"
+            >
+              Más información...
+            </button>
           </div>
         </div>
       </div>
@@ -72,5 +74,47 @@
     <button class="btn-arrow-next" (click)="buttonPrevClick()">
       <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
     </button>
+  </div>
+</div>
+
+<!--Modal detail ad-->
+<div
+  *ngIf="ad"
+  class="modal fade"
+  id="modalAd"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalAd"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          {{ ad.title }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{ ad.description }}</p>
+        <a [href]="ad.web" class="btn btn-warning mr-2">Pagina Web</a>
+        <a [href]="ad.facebook" class="btn btn-primary mr-2">Facebook</a>
+        <a [href]="ad.latitud" class="btn btn-success">
+          <fa-icon class="mapMarker" [icon]="faMarker"></fa-icon> Ubicacion</a
+        >
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
   </div>
 </div>

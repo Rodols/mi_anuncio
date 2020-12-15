@@ -13,6 +13,7 @@ export class CategoriesComponent implements OnInit {
   faMarker = faMapMarkerAlt;
   ads: { categorie: string };
   adList: Ad[] = [];
+  ad: Ad;
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -31,5 +32,9 @@ export class CategoriesComponent implements OnInit {
     this.adsSvc.getCategorie(categorie).subscribe((ads) => {
       this.adList = ads;
     });
+  }
+
+  viewDetail(ad: Ad) {
+    this.ad = ad;
   }
 }
