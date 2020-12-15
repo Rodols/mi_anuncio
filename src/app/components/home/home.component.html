@@ -104,10 +104,28 @@
       </div>
       <div class="modal-body">
         <p>{{ ad.description }}</p>
-        <a [href]="ad.web" class="btn btn-warning mr-2">Pagina Web</a>
-        <a [href]="ad.facebook" class="btn btn-primary mr-2">Facebook</a>
-        <a [href]="ad.latitud" class="btn btn-success">
-          <fa-icon class="mapMarker" [icon]="faMarker"></fa-icon> Ubicacion</a
+        <a
+          *ngIf="ad.web != '' && ad.web != null"
+          target="_blank"
+          [href]="ad.web"
+          class="btn btn-warning mr-2"
+          >Pagina Web</a
+        >
+        <a
+          *ngIf="ad.facebook != '' && ad.facebook != null"
+          target="_blank"
+          [href]="ad.facebook"
+          class="btn btn-primary mr-2"
+          >Facebook</a
+        >
+        <a
+          *ngIf="ad.latitud != '' && ad.latitud != null"
+          target="_blank"
+          href="https://maps.google.com/?q={{ ad.latitud }},{{ ad.longitud }}"
+          class="btn btn-success"
+        >
+          <fa-icon class="mapMarker" [icon]="faMarker"></fa-icon>
+          Ubicacion</a
         >
       </div>
       <div class="modal-footer">

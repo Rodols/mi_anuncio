@@ -53,6 +53,7 @@
 .card {
   margin: 1rem;
   width: 15rem;
+  height: 22rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,6 +85,11 @@
 h2 {
   text-transform: uppercase;
 }
+
+.mapMarker {
+  color: red;
+}
+
 .slick-list {
   width: 100%;
   display: flex;
