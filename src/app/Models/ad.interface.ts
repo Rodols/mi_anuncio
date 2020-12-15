@@ -11,5 +11,6 @@ export interface Ad {
   latitud?: number;
   phone?: number;
   web?: string;
+  facebook?: string;
   dateCreated?: number;
 }

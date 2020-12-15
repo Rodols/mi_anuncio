@@ -12,7 +12,6 @@ import { Ad } from 'src/app/Models/ad.interface';
 import { AdService } from 'src/app/services/ad.service';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { MapsAPILoader } from '@agm/core';
 import { FormControl } from '@angular/forms';
 
 @Component({

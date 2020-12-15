@@ -1,0 +1,52 @@
+.adsList {
+  width: 100%;
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 1rem;
+  width: 15rem;
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card img {
+  padding: 0.5rem;
+  width: 80%;
+  height: 40%;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.card-body .url a {
+  text-transform: lowercase;
+}
+
+h2 {
+  text-transform: uppercase;
+}
+.mapMarker {
+  color: red;
+}
+
+.slick-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+}
+
+@media screen and (max-width: 800px) {
+  .card {
+    width: 100%;
+  }
+}

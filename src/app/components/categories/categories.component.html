@@ -1,0 +1,33 @@
+<!--Carousel anuncios-->
+<div class="carousel-ads mt-5">
+  <h2 class="text-center">Categoria {{ ads.categorie }}</h2>
+  <div class="slick-list" id="slick-list" #slickList>
+    <div #adsList class="adsList">
+      <div #ad id="container" class="ad" *ngFor="let ad of adList">
+        <div class="card mx-2">
+          <img class="card-img-top" src="{{ ad.imageUrl }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
+            <p>
+              <span class="card-description">
+                {{ ad.description.substring(30, -1) }}...</span
+              >
+            </p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item url">
+                <a [href]="ad.web">{{ ad.web.substring(20, -1) }}</a>
+              </li>
+              <li class="list-group-item">
+                <a [href]="ad.facebook" class="btn btn-primary">Facebook</a>
+              </li>
+              <li class="list-group-item">
+                <fa-icon class="mapMarker" [icon]="faMarker"></fa-icon>
+                <a [href]="ad.latitud"> Ubicacion</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

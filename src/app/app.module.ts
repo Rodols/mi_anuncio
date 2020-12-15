@@ -21,6 +21,7 @@ import { AdsListComponent } from './components/admin/ads-list/ads-list.component
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgmCoreModule } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     AdminComponent,
     AdComponent,
     AdsListComponent,
+    CategoriesComponent,
   ],
   imports: [
     BrowserModule,

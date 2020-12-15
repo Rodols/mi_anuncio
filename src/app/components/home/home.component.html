@@ -54,11 +54,17 @@
             <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
             <p>
               <span class="card-description">
-                {{ ad.description.substring(40, -1) }}...</span
+                {{ ad.description.substring(30, -1) }}...</span
               >
             </p>
-            <a [href]="ad.web">{{ ad.web.substring(20, -1) }}</a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <a [href]="ad.web">{{ ad.web.substring(20, -1) }}</a>
+              </li>
+              <li class="list-group-item">
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

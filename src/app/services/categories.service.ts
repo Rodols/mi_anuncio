@@ -30,19 +30,6 @@ export class CategoriesService {
     }
   }
 
-  getCategorie(): Observable<Categorie[]> {
-    this.categories = this.categoriesCollection.snapshotChanges().pipe(
-      map((actions) =>
-        actions.map((a) => {
-          const data = a.payload.doc.data() as Categorie;
-          data.id = a.payload.doc.id;
-          return data;
-        })
-      )
-    );
-    return this.categories;
-  }
-
   getAllCategories(): Observable<Categorie[]> {
     this.categories = this.categoriesCollection.snapshotChanges().pipe(
       map((actions) =>

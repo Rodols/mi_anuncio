@@ -91,6 +91,22 @@ export class AdService {
     return this.ads;
   }
 
+  getCategorie(categorie: string): Observable<Ad[]> {
+    this.adsCollection = this.afs.collection<Ad>('ads', (ref) =>
+      ref.where('categorie', '==', categorie)
+    );
+    this.ads = this.adsCollection.snapshotChanges().pipe(
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data() as Ad;
+          data.id = a.payload.doc.id;
+          return data;
+        })
+      )
+    );
+    return this.ads;
+  }
+
   deleteAd(ad: Ad) {
     return this.adCollection
       .doc(ad.id)
