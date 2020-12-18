@@ -25,4 +25,8 @@ export class AdsListComponent implements OnInit {
       this.adSv.deleteAd(ad);
     }
   }
+
+  bannerUpdateState(ad: Ad) {
+    this.adSv.updateBannerState(ad);
+  }
 }

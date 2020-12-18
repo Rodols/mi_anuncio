@@ -106,6 +106,8 @@ export class AdComponent implements OnInit {
     ad.phone = phone;
     ad.categorie = categorie;
     ad.web = web;
+    ad.vistas = 0;
+    ad.banner = false;
     this.upLoad(ad);
   }
 

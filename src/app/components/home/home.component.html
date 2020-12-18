@@ -39,15 +39,15 @@
   </a>
 </div>
 
-<!--Carousel anuncios-->
+<!--Carousel ultimos anuncios -->
 <div class="carousel-ads mt-5">
   <h2>Ultimos anuncios</h2>
   <div class="slick-list" id="slick-list" #slickList>
-    <button class="btn-arrow-prev" (click)="buttonNextClick()">
+    <button class="btn-arrow-prev" (click)="buttonNextLastetClick()">
       <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
     </button>
     <div #adsList class="adsList">
-      <div #ad id="container" class="ad" *ngFor="let ad of ads">
+      <div #adLastet id="container" class="ad" *ngFor="let ad of ads">
         <div class="card mx-2">
           <img class="card-img-top" src="{{ ad.imageUrl }}" />
           <div class="card-body">
@@ -71,7 +71,45 @@
         </div>
       </div>
     </div>
-    <button class="btn-arrow-next" (click)="buttonPrevClick()">
+    <button class="btn-arrow-next" (click)="buttonPrevLastetClick()">
+      <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
+    </button>
+  </div>
+</div>
+
+<!--Carousel anuncios relevantes-->
+<div class="carousel-ads mt-5">
+  <h2>Mas relevantes</h2>
+  <div class="slick-list" id="slick-list" #slickList>
+    <button class="btn-arrow-prev" (click)="buttonNextMostSeenClick()">
+      <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
+    </button>
+    <div #adsList class="adsList">
+      <div #adMostSeen id="container" class="ad" *ngFor="let ad of mostSeenAds">
+        <div class="card mx-2">
+          <img class="card-img-top" src="{{ ad.imageUrl }}" />
+          <div class="card-body">
+            <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
+            <p>
+              <span class="card-description">
+                {{ ad.description.substring(30, -1) }}...</span
+              >
+            </p>
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#modalAd"
+              (click)="viewDetail(ad)"
+            >
+              Más información...
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-arrow-next" (click)="buttonPrevMostSeenClick()">
       <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
     </button>
   </div>
@@ -119,7 +157,7 @@
           >Facebook</a
         >
         <a
-          *ngIf="ad.latitud != '' && ad.latitud != null"
+          *ngIf="ad.latitud != null"
           target="_blank"
           href="https://maps.google.com/?q={{ ad.latitud }},{{ ad.longitud }}"
           class="btn btn-success"

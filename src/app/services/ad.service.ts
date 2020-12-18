@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { finalize, map } from 'rxjs/operators';
 import { Ad } from 'src/app/Models/ad.interface';
@@ -13,19 +14,24 @@ import { FileItem } from '../Models/file-item';
   providedIn: 'root',
 })
 export class AdService {
+  public adsLastet: Observable<Ad[]>;
+  public mostSeenAds: Observable<Ad[]>;
+  public bannersAds: Observable<Ad[]>;
   public ads: Observable<Ad[]>;
   public ad: Observable<Ad[]>;
   private adsCollection: AngularFirestoreCollection<Ad>;
+  private mostSeenAdsCollection: AngularFirestoreCollection<Ad>;
+  private bannersAdsCollection: AngularFirestoreCollection<Ad>;
   private adCollection: AngularFirestoreCollection<Ad>;
   private MEDIA_STORAGE_PATH = 'ImagesAds';
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage
   ) {
-    this.adCollection = afs.collection<Ad>('ads', (ref) =>
-      ref.orderBy('dateCreated', 'desc')
-    );
     this.adsCollection = afs.collection<Ad>('ads');
+    this.mostSeenAdsCollection = afs.collection<Ad>('ads');
+    this.bannersAdsCollection = afs.collection<Ad>('ads');
+    this.adCollection = afs.collection<Ad>('ads');
   }
 
   private generateFilename(name: string): string {
@@ -79,6 +85,9 @@ export class AdService {
   }
 
   getAllAds(): Observable<Ad[]> {
+    this.adsCollection = this.afs.collection<Ad>('ads', (ref) =>
+      ref.orderBy('title', 'asc')
+    );
     this.ads = this.adsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
@@ -89,6 +98,54 @@ export class AdService {
       )
     );
     return this.ads;
+  }
+
+  getLastetAds(): Observable<Ad[]> {
+    this.adsCollection = this.afs.collection<Ad>('ads', (ref) =>
+      ref.orderBy('dateCreated', 'desc').limit(10)
+    );
+    this.adsLastet = this.adsCollection.snapshotChanges().pipe(
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data() as Ad;
+          data.id = a.payload.doc.id;
+          return data;
+        })
+      )
+    );
+    return this.adsLastet;
+  }
+
+  getMostSeenAds(): Observable<Ad[]> {
+    this.mostSeenAdsCollection = this.afs.collection<Ad>('ads', (ref) =>
+      ref.where('vistas', '>', 0).orderBy('vistas', 'desc').limit(10)
+    );
+    this.mostSeenAds = this.mostSeenAdsCollection.snapshotChanges().pipe(
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data() as Ad;
+          data.id = a.payload.doc.id;
+          return data;
+        })
+      )
+    );
+    return this.mostSeenAds;
+  }
+
+  getBannersAds(): Observable<Ad[]> {
+    this.bannersAdsCollection = this.afs.collection<Ad>('ads', (ref) =>
+      ref.where('banner', '==', true)
+    );
+    this.bannersAds = this.bannersAdsCollection.snapshotChanges().pipe(
+      map((actions) =>
+        actions.map((a) => {
+          const data = a.payload.doc.data() as Ad;
+          data.id = a.payload.doc.id;
+          return data;
+        })
+      )
+    );
+    return this.bannersAds;
   }
 
   getCategorie(categorie: string): Observable<Ad[]> {
@@ -117,5 +174,14 @@ export class AdService {
   deleteImageAd(ad: Ad) {
     const storeRef = this.storage.ref(ad.image);
     return storeRef.delete();
+  }
+
+  updateVistas(ad: Ad) {
+    console.log(ad.vistas);
+    return this.afs.doc(`ads/${ad.id}`).update({ vistas: ad.vistas + 1 });
+  }
+
+  updateBannerState(ad: Ad) {
+    return this.afs.doc(`ads/${ad.id}`).update({ banner: !ad.banner });
   }
 }

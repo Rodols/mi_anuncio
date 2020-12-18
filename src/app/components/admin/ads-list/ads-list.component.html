@@ -21,7 +21,17 @@
         <span class="contacto">Email:</span> {{ ad.email }}
       </td>
       <td>{{ ad.categorie }}</td>
-      <td><img src="{{ ad.imageUrl }}" width="100" /></td>
+      <td>
+        <img src="{{ ad.imageUrl }}" width="100" /> <br />
+        <button
+          [className]="
+            ad.banner ? 'btn btn-warning mt-2' : 'btn btn-outline-warning mt-2'
+          "
+          (click)="bannerUpdateState(ad)"
+        >
+          Banner
+        </button>
+      </td>
       <td>
         <button class="btn btn-danger" (click)="deleteAd(ad)">Borrar</button>
       </td>

@@ -24,11 +24,15 @@ export class HomeComponent implements OnInit {
   faMarker = faMapMarkerAlt;
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
-  @ViewChild('buttonPrev') buttonPrev: ElementRef;
-  @ViewChild('buttonNext') buttonNext: ElementRef;
-  @ViewChildren('ad') adCards: QueryList<ElementRef>;
+  @ViewChild('buttonPrevLastet') buttonPrevLastet: ElementRef;
+  @ViewChild('buttonNextLastet') buttonNextLastet: ElementRef;
+  @ViewChild('buttonPrevMostSeen') buttonPrevMostSeen: ElementRef;
+  @ViewChild('buttonNextMostSeen') buttonNextMostSeen: ElementRef;
+  @ViewChildren('adLastet') adLastet: QueryList<ElementRef>;
+  @ViewChildren('adMostSeen') adMostSeen: QueryList<ElementRef>;
   adListCarousel: Ad[] = [];
   ads: Ad[] = [];
+  mostSeenAds: Ad[] = [];
   adCarousel: Ad;
   ad: Ad;
   numberAds = 0;
@@ -50,15 +54,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllads();
+    this.getBannersAds();
+    this.getMostSeenAds();
     //creamos el mapa por medio del div con id mapita
   }
 
-  buttonPrevClick() {
+  buttonPrevLastetClick() {
     //console.log('prev', this.cont, this.adCards.length);
     //console.log(this.adCards.length * -1 + 2);
-    if (this.cont != this.adCards.length * -1 + 1) {
+    if (this.cont != this.adLastet.length * -1 + 1) {
       this.cont--;
-      this.adCards.forEach((adCard) => {
+      this.adLastet.forEach((adCard) => {
         this.renderer.setStyle(
           adCard.nativeElement,
           'transform',
@@ -68,11 +74,40 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  buttonNextClick() {
+  buttonNextLastetClick() {
     //console.log('next', this.cont, this.adCards.length);
     if (this.cont <= -1) {
       this.cont++;
-      this.adCards.forEach((adCard) => {
+      this.adLastet.forEach((adCard) => {
+        this.renderer.setStyle(
+          adCard.nativeElement,
+          'transform',
+          `translate(${this.cont * 16}rem)`
+        );
+      });
+    }
+  }
+
+  buttonPrevMostSeenClick() {
+    //console.log('prev', this.cont, this.adCards.length);
+    //console.log(this.adCards.length * -1 + 2);
+    if (this.cont != this.adMostSeen.length * -1 + 1) {
+      this.cont--;
+      this.adMostSeen.forEach((adCard) => {
+        this.renderer.setStyle(
+          adCard.nativeElement,
+          'transform',
+          `translate(${this.cont * 16}rem)`
+        );
+      });
+    }
+  }
+
+  buttonNextMostSeenClick() {
+    //console.log('next', this.cont, this.adCards.length);
+    if (this.cont <= -1) {
+      this.cont++;
+      this.adMostSeen.forEach((adCard) => {
         this.renderer.setStyle(
           adCard.nativeElement,
           'transform',
@@ -83,21 +118,30 @@ export class HomeComponent implements OnInit {
   }
 
   getAllads() {
-    this.adSv.getAllAds().subscribe((ads) => {
+    this.adSv.getLastetAds().subscribe((ads) => {
       this.ads = ads;
-      let i = 0;
-      ads.forEach((ad) => {
-        if (i === 0) {
-          this.adCarousel = ad;
-        } else {
+    });
+  }
+
+  getBannersAds() {
+    this.adSv.getBannersAds().subscribe((bannersAds) => {
+      this.adCarousel = bannersAds[0];
+      bannersAds.map((ad, index) => {
+        if (index != 0) {
           this.adListCarousel.push(ad);
         }
-        i++;
       });
+    });
+  }
+
+  getMostSeenAds() {
+    this.adSv.getMostSeenAds().subscribe((mostAdsSeen) => {
+      this.mostSeenAds = mostAdsSeen;
     });
   }
 
   viewDetail(ad: Ad) {
     this.ad = ad;
+    this.adSv.updateVistas(ad);
   }
 }

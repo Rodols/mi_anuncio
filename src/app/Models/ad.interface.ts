@@ -10,7 +10,9 @@ export interface Ad {
   longitud?: number;
   latitud?: number;
   phone?: number;
+  banner?: boolean;
   web?: string;
   facebook?: string;
   dateCreated?: number;
+  vistas?: number;
 }

@@ -36,5 +36,6 @@ export class CategoriesComponent implements OnInit {
 
   viewDetail(ad: Ad) {
     this.ad = ad;
+    this.adsSvc.updateVistas(ad);
   }
 }
