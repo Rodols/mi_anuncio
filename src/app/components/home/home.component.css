@@ -80,8 +80,29 @@
 }
 
 .carousel-item img {
-  height: 40rem;
+  height: 25rem;
+  width: 100%;
 }
+
+.cel {
+  color: rgb(10, 223, 10);
+}
+
+.footer {
+  padding: 2rem;
+  background-color: #666;
+  color: #bbb;
+}
+
+.footer a {
+  color: #bbb;
+}
+
+.footer h3,
+h4 {
+  padding: 1rem;
+}
+
 h2 {
   text-transform: uppercase;
 }
@@ -98,8 +119,29 @@ h2 {
   justify-content: center;
 }
 
+.table-fixed th,
+tr,
+td,
+tbody {
+  width: 100%;
+}
+
+.table-fixed tbody {
+  height: 20rem;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.table-fixed tbody {
+  display: block;
+}
+
 @media screen and (max-width: 800px) {
   .carousel-item img {
+    height: 12rem;
+  }
+
+  .table-fixed tbody {
     height: 12rem;
   }
 }

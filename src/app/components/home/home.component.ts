@@ -10,10 +10,15 @@ import {
 } from '@angular/core';
 import { Ad } from 'src/app/Models/ad.interface';
 import { AdService } from 'src/app/services/ad.service';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronLeft,
+  faChevronRight,
+  faMapMarkerAlt,
+  faPhoneVolume,
+} from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from '@angular/forms';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { Categorie } from 'src/app/Models/categorie.interface';
 
 @Component({
   selector: 'app-home',
@@ -24,12 +29,15 @@ export class HomeComponent implements OnInit {
   faMarker = faMapMarkerAlt;
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
+  faPhone = faPhoneVolume;
+  cel: number = 2235698659;
   @ViewChild('buttonPrevLastet') buttonPrevLastet: ElementRef;
   @ViewChild('buttonNextLastet') buttonNextLastet: ElementRef;
   @ViewChild('buttonPrevMostSeen') buttonPrevMostSeen: ElementRef;
   @ViewChild('buttonNextMostSeen') buttonNextMostSeen: ElementRef;
   @ViewChildren('adLastet') adLastet: QueryList<ElementRef>;
   @ViewChildren('adMostSeen') adMostSeen: QueryList<ElementRef>;
+  categories: Categorie[];
   adListCarousel: Ad[] = [];
   ads: Ad[] = [];
   mostSeenAds: Ad[] = [];
@@ -50,13 +58,17 @@ export class HomeComponent implements OnInit {
   mapTypeId = 'hybrid';
   public searchControl: FormControl;
 
-  constructor(private adSv: AdService, private renderer: Renderer2) {}
+  constructor(
+    private adSv: AdService,
+    private categorieSv: CategoriesService,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {
     this.getAllads();
     this.getBannersAds();
     this.getMostSeenAds();
-    //creamos el mapa por medio del div con id mapita
+    this.getAllCategories();
   }
 
   buttonPrevLastetClick() {
@@ -121,6 +133,12 @@ export class HomeComponent implements OnInit {
     this.adSv.getLastetAds().subscribe((ads) => {
       this.ads = ads;
     });
+  }
+
+  getAllCategories() {
+    this.categorieSv
+      .getAllCategories()
+      .subscribe((categories) => (this.categories = categories));
   }
 
   getBannersAds() {

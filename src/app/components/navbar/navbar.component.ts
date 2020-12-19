@@ -5,6 +5,11 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Categorie } from 'src/app/Models/categorie.interface';
 import { CategoriesService } from 'src/app/services/categories.service';
+import {
+  faPhoneVolume,
+  faUserTie,
+  faHome,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +17,10 @@ import { CategoriesService } from 'src/app/services/categories.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  faPhone = faPhoneVolume;
+  faUserAdmin = faUserTie;
+  faHome = faHome;
+  cel: number = 2235698659;
   public isLogged = false;
   public user;
   public user$: Observable<any> = this.af.user;
