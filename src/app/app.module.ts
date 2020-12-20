@@ -22,6 +22,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AgmCoreModule } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { AuthService } from './services/auth.service';
+import { CanAdminGuard } from './guards/can-admin.guard';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,7 @@ import { CategoriesComponent } from './components/categories/categories.componen
     FontAwesomeModule,
     GoogleMapsModule,
   ],
-  providers: [],
+  providers: [AuthService, CanAdminGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

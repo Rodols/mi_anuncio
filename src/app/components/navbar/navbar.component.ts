@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   faHome = faHome;
   cel: number = 2235698659;
   public isLogged = false;
+  public isAdmin = false;
   public user;
   public user$: Observable<any> = this.af.user;
   categories: Categorie[] = [];
@@ -39,10 +40,11 @@ export class NavbarComponent implements OnInit {
   }
 
   currenuser() {
-    this.user$.subscribe((user) => {
+    this.authService.user$.subscribe((user) => {
       if (user) {
         this.user = user;
         this.isLogged = true;
+        this.isAdmin = this.authService.isAdmin(user);
       }
     });
   }
