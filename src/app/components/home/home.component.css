@@ -14,8 +14,8 @@
   opacity: 0.8;
 }
 
-.btn-arrow-prev,
-.btn-arrow-next {
+.buttonLeftLastetAds,
+.buttonRightLastetAds {
   border: none;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.4);
@@ -27,26 +27,64 @@
   color: white;
 }
 
-.btn-arrow-prev {
+.buttonLeftMostSeen,
+.buttonRightMostSeen {
+  border: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 40px;
+  height: 20%;
+  top: calc(50%-25%);
+  line-height: 40px;
+  width: 50px;
+  color: white;
+}
+
+.buttonLeftLastetAds {
   width: 50px;
   height: 50px;
   border-radius: 50px;
   z-index: 1;
   left: 0;
+  display: none;
 }
 
-.btn-arrow-next {
+.buttonRightLastetAds {
   width: 50px;
   height: 50px;
   border-radius: 50px;
   right: 0;
 }
 
-.btn-arrow-next:hover {
+.buttonLeftMostSeen {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  z-index: 1;
+  left: 0;
+  display: none;
+}
+
+.buttonRightMostSeen {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  right: 0;
+}
+
+.buttonLeftMostSeen:hover {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.btn-arrow-prev:hover {
+.buttonRightMostSeen:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.buttonLeftLastetAds:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.buttonRightLastetAds:hover {
   background-color: rgba(0, 0, 0, 0.6);
 }
 

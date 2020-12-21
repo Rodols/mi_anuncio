@@ -34,6 +34,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('buttonNextLastet') buttonNextLastet: ElementRef;
   @ViewChild('buttonPrevMostSeen') buttonPrevMostSeen: ElementRef;
   @ViewChild('buttonNextMostSeen') buttonNextMostSeen: ElementRef;
+  @ViewChild('buttonLeftMostSeen') buttonLeftMostSeen: ElementRef;
+  @ViewChild('buttonLeftLastetAds') buttonLeftLastetAds: ElementRef;
   @ViewChildren('adLastet') adLastet: QueryList<ElementRef>;
   @ViewChildren('adMostSeen') adMostSeen: QueryList<ElementRef>;
   categories: Categorie[] = [];
@@ -85,6 +87,11 @@ export class HomeComponent implements OnInit {
           'transform',
           `translate(${this.cont * 16}rem)`
         );
+        this.renderer.setStyle(
+          this.buttonLeftLastetAds.nativeElement,
+          'display',
+          'block'
+        );
       });
     }
   }
@@ -99,13 +106,19 @@ export class HomeComponent implements OnInit {
           'transform',
           `translate(${this.cont * 16}rem)`
         );
+        if (this.cont == 0) {
+          this.renderer.setStyle(
+            this.buttonLeftLastetAds.nativeElement,
+            'display',
+            'none'
+          );
+        }
       });
     }
   }
 
   buttonPrevMostSeenClick() {
-    //console.log('prev', this.cont, this.adCards.length);
-    //console.log(this.adCards.length * -1 + 2);
+    // console.log('prev', this.adMostSeen.length * -1 + 1);
     if (this.cont != this.adMostSeen.length * -1 + 1) {
       this.cont--;
       this.adMostSeen.forEach((adCard) => {
@@ -114,20 +127,32 @@ export class HomeComponent implements OnInit {
           'transform',
           `translate(${this.cont * 16}rem)`
         );
+        this.renderer.setStyle(
+          this.buttonLeftMostSeen.nativeElement,
+          'display',
+          'block'
+        );
       });
     }
   }
 
   buttonNextMostSeenClick() {
-    //console.log('next', this.cont, this.adCards.length);
     if (this.cont <= -1) {
       this.cont++;
+      // console.log('next', this.cont);
       this.adMostSeen.forEach((adCard) => {
         this.renderer.setStyle(
           adCard.nativeElement,
           'transform',
           `translate(${this.cont * 16}rem)`
         );
+        if (this.cont == 0) {
+          this.renderer.setStyle(
+            this.buttonLeftMostSeen.nativeElement,
+            'display',
+            'none'
+          );
+        }
       });
     }
   }

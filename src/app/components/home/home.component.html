@@ -97,7 +97,11 @@
   <section *ngIf="lastetAds" class="carousel-ads mt-5">
     <h2>Ultimos anuncios</h2>
     <div class="slick-list" id="slick-list" #slickList>
-      <button class="btn-arrow-prev" (click)="buttonNextLastetClick()">
+      <button
+        #buttonLeftLastetAds
+        class="buttonLeftLastetAds"
+        (click)="buttonNextLastetClick()"
+      >
         <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
       </button>
       <div #adsList class="adsList">
@@ -125,7 +129,7 @@
           </div>
         </div>
       </div>
-      <button class="btn-arrow-next" (click)="buttonPrevLastetClick()">
+      <button class="buttonRightLastetAds" (click)="buttonPrevLastetClick()">
         <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
       </button>
     </div>
@@ -134,7 +138,11 @@
   <section *ngIf="mostSeenAds.length" class="carousel-ads mt-5">
     <h2>Mas relevantes</h2>
     <div class="slick-list" id="slick-list" #slickList>
-      <button class="btn-arrow-prev" (click)="buttonNextMostSeenClick()">
+      <button
+        #buttonLeftMostSeen
+        class="buttonLeftMostSeen"
+        (click)="buttonNextMostSeenClick()"
+      >
         <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
       </button>
       <div #adsList class="adsList">
@@ -167,7 +175,11 @@
           </div>
         </div>
       </div>
-      <button class="btn-arrow-next" (click)="buttonPrevMostSeenClick()">
+      <button
+        #buttonRightMostSeen
+        class="buttonRightMostSeen"
+        (click)="buttonPrevMostSeenClick()"
+      >
         <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
       </button>
     </div>
