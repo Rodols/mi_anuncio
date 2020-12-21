@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { finalize, map } from 'rxjs/operators';
 import { Ad } from 'src/app/Models/ad.interface';
@@ -14,7 +13,7 @@ import { FileItem } from '../Models/file-item';
   providedIn: 'root',
 })
 export class AdService {
-  public adsLastet: Observable<Ad[]>;
+  public lastetAds: Observable<Ad[]>;
   public mostSeenAds: Observable<Ad[]>;
   public bannersAds: Observable<Ad[]>;
   public ads: Observable<Ad[]>;
@@ -24,6 +23,9 @@ export class AdService {
   private bannersAdsCollection: AngularFirestoreCollection<Ad>;
   private adCollection: AngularFirestoreCollection<Ad>;
   private MEDIA_STORAGE_PATH = 'ImagesAds';
+  title: string = '';
+  private searchTitleSubject = new Subject<string>();
+  searchTitleObservable = this.searchTitleSubject.asObservable();
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage
@@ -104,7 +106,7 @@ export class AdService {
     this.adsCollection = this.afs.collection<Ad>('ads', (ref) =>
       ref.orderBy('dateCreated', 'desc').limit(10)
     );
-    this.adsLastet = this.adsCollection.snapshotChanges().pipe(
+    this.lastetAds = this.adsCollection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((a) => {
           const data = a.payload.doc.data() as Ad;
@@ -113,7 +115,7 @@ export class AdService {
         })
       )
     );
-    return this.adsLastet;
+    return this.lastetAds;
   }
 
   getMostSeenAds(): Observable<Ad[]> {
@@ -183,5 +185,9 @@ export class AdService {
 
   updateBannerState(ad: Ad) {
     return this.afs.doc(`ads/${ad.id}`).update({ banner: !ad.banner });
+  }
+
+  searchTitle(title: string) {
+    this.searchTitleSubject.next(title);
   }
 }

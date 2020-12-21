@@ -24,6 +24,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { AuthService } from './services/auth.service';
 import { CanAdminGuard } from './guards/can-admin.guard';
+import { FilterAdsPipe } from './pipes/filter-ads.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CanAdminGuard } from './guards/can-admin.guard';
     AdComponent,
     AdsListComponent,
     CategoriesComponent,
+    FilterAdsPipe,
   ],
   imports: [
     BrowserModule,

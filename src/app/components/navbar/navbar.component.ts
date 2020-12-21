@@ -10,6 +10,7 @@ import {
   faUserTie,
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
+import { AdService } from 'src/app/services/ad.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
   public isLogged = false;
   public isAdmin = false;
   public user;
+  title: string = '';
   public user$: Observable<any> = this.af.user;
   categories: Categorie[] = [];
 
@@ -31,7 +33,8 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private af: AngularFireAuth,
     private router: Router,
-    private categorieSv: CategoriesService
+    private categorieSv: CategoriesService,
+    private adSvc: AdService
   ) {}
 
   ngOnInit() {
@@ -59,5 +62,9 @@ export class NavbarComponent implements OnInit {
     this.categorieSv
       .getAllCategories()
       .subscribe((categories) => (this.categories = categories));
+  }
+
+  search(title: string) {
+    this.adSvc.searchTitle(this.title);
   }
 }

@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -37,9 +36,10 @@ export class HomeComponent implements OnInit {
   @ViewChild('buttonNextMostSeen') buttonNextMostSeen: ElementRef;
   @ViewChildren('adLastet') adLastet: QueryList<ElementRef>;
   @ViewChildren('adMostSeen') adMostSeen: QueryList<ElementRef>;
-  categories: Categorie[];
+  categories: Categorie[] = [];
   adListCarousel: Ad[] = [];
   ads: Ad[] = [];
+  lastetAds: Ad[] = [];
   mostSeenAds: Ad[] = [];
   adCarousel: Ad;
   ad: Ad;
@@ -56,6 +56,7 @@ export class HomeComponent implements OnInit {
   latLong: any = {};
   address: string;
   mapTypeId = 'hybrid';
+  title: string = '';
   public searchControl: FormControl;
 
   constructor(
@@ -66,9 +67,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllads();
+    this.getLastetAds();
     this.getBannersAds();
     this.getMostSeenAds();
     this.getAllCategories();
+    this.adSv.searchTitleObservable.subscribe((title) => (this.title = title));
   }
 
   buttonPrevLastetClick() {
@@ -130,8 +133,14 @@ export class HomeComponent implements OnInit {
   }
 
   getAllads() {
-    this.adSv.getLastetAds().subscribe((ads) => {
+    this.adSv.getAllAds().subscribe((ads) => {
       this.ads = ads;
+    });
+  }
+
+  getLastetAds() {
+    this.adSv.getLastetAds().subscribe((ads) => {
+      this.lastetAds = ads;
     });
   }
 
@@ -153,8 +162,8 @@ export class HomeComponent implements OnInit {
   }
 
   getMostSeenAds() {
-    this.adSv.getMostSeenAds().subscribe((mostAdsSeen) => {
-      this.mostSeenAds = mostAdsSeen;
+    this.adSv.getMostSeenAds().subscribe((mostSeenAds) => {
+      this.mostSeenAds = mostSeenAds;
     });
   }
 
