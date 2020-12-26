@@ -1,156 +1,81 @@
-<main *ngIf="categories.length && ads.length && lastetAds.length; else loading">
-  <section class="row">
-    <section class="col-12 col-md-9">
-      <!--Carrusel de imagenes-->
-      <div
-        id="carouselExampleControls"
-        class="carousel slide mt-2"
-        data-ride="carousel"
-      >
-        <div *ngIf="adCarousel" class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ adCarousel.imageUrl }}" />
-            <div class="carousel-caption d-none d-md-block">
-              <h5>{{ adCarousel.title.substring(18, -1) }}...</h5>
-              <p>{{ adCarousel.description.substring(180, -1) }} .....</p>
-            </div>
-          </div>
-          <div *ngFor="let ad of adListCarousel" class="carousel-item">
-            <img class="d-block w-100" src="{{ ad.imageUrl }}" />
-            <div class="carousel-caption d-none d-md-block">
-              <h5>{{ ad.title.substring(18, -1) }}...</h5>
-              <p>{{ ad.description.substring(180, -1) }} .....</p>
-            </div>
-          </div>
-        </div>
-        <a
-          class="carousel-control-prev"
-          href="#carouselExampleControls"
-          role="button"
-          data-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a
-          class="carousel-control-next"
-          href="#carouselExampleControls"
-          role="button"
-          data-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </section>
-    <section *ngIf="categories.length" class="col-12 col-md-3">
-      <!--Tabla de categorias-->
-      <table class="table table-hover table-fixed mt-2">
-        <thead class="thead-dark">
-          <tr>
-            <th>Categoria</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let categorie of categories">
-            <td>
-              <a [routerLink]="['/categories/', categorie.name]">{{
-                categorie.name
-              }}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </section>
-
-  <!--Search anuncios -->
-  <section class="search-ads mt-5">
-    <div class="searchList">
-      <div id="container" class="ad" *ngFor="let ad of ads | filterAds: title">
-        <div class="card mx-2">
-          <img class="card-img-top" src="{{ ad.imageUrl }}" />
-          <div class="card-body">
-            <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
-            <p>
-              <span class="card-description">
-                {{ ad.description.substring(30, -1) }}...</span
-              >
-            </p>
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#modalAd"
-              (click)="viewDetail(ad)"
-            >
-              Más información...
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!--Carousel ultimos anuncios -->
-  <section *ngIf="lastetAds" class="carousel-ads mt-5">
-    <h2>Ultimos anuncios</h2>
-    <div class="slick-list" id="slick-list" #slickList>
-      <button
-        #buttonLeftLastetAds
-        class="buttonLeftLastetAds"
-        (click)="buttonNextLastetClick()"
-      >
-        <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
-      </button>
-      <div #adsList class="adsList">
-        <div #adLastet id="container" class="ad" *ngFor="let ad of lastetAds">
-          <div class="card mx-2">
-            <img class="card-img-top" src="{{ ad.imageUrl }}" />
-            <div class="card-body">
-              <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
-              <p>
-                <span class="card-description">
-                  {{ ad.description.substring(30, -1) }}...</span
-                >
-              </p>
-              <!-- Button trigger modal -->
-              <button
-                type="button"
-                class="btn btn-primary"
-                data-toggle="modal"
-                data-target="#modalAd"
-                (click)="viewDetail(ad)"
-              >
-                Más información...
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button class="buttonRightLastetAds" (click)="buttonPrevLastetClick()">
-        <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
-      </button>
-    </div>
-  </section>
-  <!--Carousel anuncios relevantes-->
-  <section *ngIf="mostSeenAds.length" class="carousel-ads mt-5">
-    <h2>Mas relevantes</h2>
-    <div class="slick-list" id="slick-list" #slickList>
-      <button
-        #buttonLeftMostSeen
-        class="buttonLeftMostSeen"
-        (click)="buttonNextMostSeenClick()"
-      >
-        <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
-      </button>
-      <div #adsList class="adsList">
+<app-navbar></app-navbar>
+<div class="container">
+  <main
+    *ngIf="categories.length && ads.length && lastetAds.length; else loading"
+  >
+    <section class="row">
+      <section class="col-12 col-md-9">
+        <!--Carrusel de imagenes-->
         <div
-          #adMostSeen
+          id="carouselExampleControls"
+          class="carousel slide mt-2"
+          data-ride="carousel"
+        >
+          <div *ngIf="adCarousel" class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="{{ adCarousel.imageUrl }}" />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>{{ adCarousel.title.substring(18, -1) }}...</h5>
+                <p>{{ adCarousel.description.substring(180, -1) }} .....</p>
+              </div>
+            </div>
+            <div *ngFor="let ad of adListCarousel" class="carousel-item">
+              <img class="d-block w-100" src="{{ ad.imageUrl }}" />
+              <div class="carousel-caption d-none d-md-block">
+                <h5>{{ ad.title.substring(18, -1) }}...</h5>
+                <p>{{ ad.description.substring(180, -1) }} .....</p>
+              </div>
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselExampleControls"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselExampleControls"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </section>
+      <section *ngIf="categories.length" class="col-12 col-md-3">
+        <!--Tabla de categorias-->
+        <table class="table table-hover table-fixed mt-2">
+          <thead class="thead-dark">
+            <tr>
+              <th>Categoria</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let categorie of categories">
+              <td>
+                <a [routerLink]="['/categories/', categorie.name]">{{
+                  categorie.name
+                }}</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <!--Search anuncios -->
+    <section *ngIf="ads | filterAds: title" class="search-ads mt-5">
+      <h2>Resultados de la busqueda...</h2>
+      <div class="searchList">
+        <div
           id="container"
           class="ad"
-          *ngFor="let ad of mostSeenAds"
+          *ngFor="let ad of ads | filterAds: title"
         >
           <div class="card mx-2">
             <img class="card-img-top" src="{{ ad.imageUrl }}" />
@@ -175,33 +100,118 @@
           </div>
         </div>
       </div>
-      <button
-        #buttonRightMostSeen
-        class="buttonRightMostSeen"
-        (click)="buttonPrevMostSeenClick()"
-      >
-        <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
-      </button>
+    </section>
+
+    <!--Carousel ultimos anuncios -->
+    <section *ngIf="lastetAds" class="carousel-ads mt-5">
+      <h2>Ultimos anuncios</h2>
+      <div class="slick-list" id="slick-list" #slickList>
+        <button
+          #buttonLeftLastetAds
+          class="buttonLeftLastetAds"
+          (click)="buttonNextLastetClick()"
+        >
+          <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
+        </button>
+        <div #adsList class="adsList">
+          <div #adLastet id="container" class="ad" *ngFor="let ad of lastetAds">
+            <div class="card mx-2">
+              <img class="card-img-top" src="{{ ad.imageUrl }}" />
+              <div class="card-body">
+                <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
+                <p>
+                  <span class="card-description">
+                    {{ ad.description.substring(30, -1) }}...</span
+                  >
+                </p>
+                <!-- Button trigger modal -->
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#modalAd"
+                  (click)="viewDetail(ad)"
+                >
+                  Más información...
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="buttonRightLastetAds" (click)="buttonPrevLastetClick()">
+          <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
+        </button>
+      </div>
+    </section>
+    <!--Carousel anuncios relevantes-->
+    <section *ngIf="mostSeenAds.length" class="carousel-ads mt-5">
+      <h2>Mas relevantes</h2>
+      <div class="slick-list" id="slick-list" #slickList>
+        <button
+          #buttonLeftMostSeen
+          class="buttonLeftMostSeen"
+          (click)="buttonNextMostSeenClick()"
+        >
+          <span><fa-icon [icon]="faChevronLeft"></fa-icon></span>
+        </button>
+        <div #adsList class="adsList">
+          <div
+            #adMostSeen
+            id="container"
+            class="ad"
+            *ngFor="let ad of mostSeenAds"
+          >
+            <div class="card mx-2">
+              <img class="card-img-top" src="{{ ad.imageUrl }}" />
+              <div class="card-body">
+                <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
+                <p>
+                  <span class="card-description">
+                    {{ ad.description.substring(30, -1) }}...</span
+                  >
+                </p>
+                <!-- Button trigger modal -->
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#modalAd"
+                  (click)="viewDetail(ad)"
+                >
+                  Más información...
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          #buttonRightMostSeen
+          class="buttonRightMostSeen"
+          (click)="buttonPrevMostSeenClick()"
+        >
+          <span><fa-icon [icon]="faChevronRight"></fa-icon></span>
+        </button>
+      </div>
+    </section>
+    <!--Footer-->
+    <section class="footer mb-2">
+      <div class="container text-center">
+        <h3>MiAnuncioApp</h3>
+        <h4>
+          <fa-icon class="cel" [icon]="faPhone"></fa-icon>
+          <span class="cel"> {{ cel }}</span>
+        </h4>
+        <a [routerLink]="['/']">Terminos y condiciones</a>
+      </div>
+    </section>
+  </main>
+  <ng-template #loading>
+    <div class="load">
+      <div class="loader"></div>
+      <h3>Cargando...</h3>
     </div>
-  </section>
-  <!--Footer-->
-  <section class="footer mb-2">
-    <div class="container text-center">
-      <h3>MiAnuncioApp</h3>
-      <h4>
-        <fa-icon class="cel" [icon]="faPhone"></fa-icon>
-        <span class="cel"> {{ cel }}</span>
-      </h4>
-      <a [routerLink]="['/']">Terminos y condiciones</a>
-    </div>
-  </section>
-</main>
-<ng-template #loading>
-  <div class="load">
-    <div class="loader"></div>
-    <h3>Cargando...</h3>
-  </div>
-</ng-template>
+  </ng-template>
+</div>
 
 <!--Modal detail ad-->
 <div

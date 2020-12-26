@@ -4,6 +4,7 @@ import { AdService } from 'src/app/services/ad.service';
 import {
   faCheckCircle,
   faTimesCircle,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,11 +15,14 @@ import {
 export class AdsListComponent implements OnInit {
   faCheckCircle = faCheckCircle;
   faTimesCircle = faTimesCircle;
+  faSearch = faSearch;
   ads: Ad[];
+  title: string = '';
   constructor(private adSv: AdService) {}
 
   ngOnInit() {
     this.getAllAds();
+    this.getTitle();
   }
 
   getAllAds() {
@@ -34,5 +38,15 @@ export class AdsListComponent implements OnInit {
 
   bannerUpdateState(ad: Ad) {
     this.adSv.updateBannerState(ad);
+  }
+
+  getTitle() {
+    this.adSv.searchTitleObservable.subscribe((title) => {
+      this.title = title;
+    });
+  }
+
+  search(title: string) {
+    this.adSv.searchTitle(title);
   }
 }

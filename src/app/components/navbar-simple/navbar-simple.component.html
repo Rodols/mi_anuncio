@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">MiAnuncioApp</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <fa-icon [icon]="faHome"> </fa-icon> Inicio
+          <span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Categorias
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li>
+            <a
+              *ngFor="let categorie of categories"
+              class="dropdown-item"
+              [routerLink]="['/categories/', categorie.name]"
+              >{{ categorie.name }}</a
+            >
+          </li>
+        </div>
+      </li>
+      <li *ngIf="isLogged && isAdmin" class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin']"> Admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" tabindex="-1" aria-disabled="true"
+          ><fa-icon class="cel" [icon]="faPhone"></fa-icon
+          ><span class="cel"> {{ cel }}</span>
+        </a>
+      </li>
+      <li *ngIf="!isLogged" class="nav-item">
+        <a class="nav-link" [routerLink]="['/login']">
+          <fa-icon [icon]="faUserAdmin"></fa-icon>
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li *ngIf="isLogged" class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/home']"
+          tabindex="-1"
+          (click)="logout()"
+          aria-disabled="true"
+          >Cerrar sesion</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,28 +1,36 @@
-<!--Carousel anuncios-->
-<div class="carousel-ads mt-5">
-  <h2 class="text-center">Seccion de {{ ads.categorie }}</h2>
-  <div class="slick-list" id="slick-list" #slickList>
-    <div #adsList class="adsList">
-      <div #ad id="container" class="ad" *ngFor="let ad of adList">
-        <div class="card mx-2">
-          <img class="card-img-top" src="{{ ad.imageUrl }}" />
-          <div class="card-body">
-            <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
-            <p>
-              <span class="card-description">
-                {{ ad.description.substring(30, -1) }}...</span
+<app-navbar></app-navbar>
+<div class="container">
+  <!--Carousel anuncios-->
+  <div class="carousel-ads mt-5">
+    <h2 class="text-center">Seccion de {{ ads.categorie }}</h2>
+    <div class="slick-list" id="slick-list" #slickList>
+      <div #adsList class="adsList">
+        <div
+          #ad
+          id="container"
+          class="ad"
+          *ngFor="let ad of adList | filterCategories: title"
+        >
+          <div class="card mx-2">
+            <img class="card-img-top" src="{{ ad.imageUrl }}" />
+            <div class="card-body">
+              <h5 class="card-title">{{ ad.title.substring(15, -1) }}...</h5>
+              <p>
+                <span class="card-description">
+                  {{ ad.description.substring(30, -1) }}...</span
+                >
+              </p>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modalAd"
+                (click)="viewDetail(ad)"
               >
-            </p>
-            <!-- Button trigger modal -->
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#modalAd"
-              (click)="viewDetail(ad)"
-            >
-              Más información...
-            </button>
+                Más información...
+              </button>
+            </div>
           </div>
         </div>
       </div>

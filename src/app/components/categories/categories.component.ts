@@ -14,6 +14,7 @@ export class CategoriesComponent implements OnInit {
   ads: { categorie: string };
   adList: Ad[] = [];
   ad: Ad;
+  title: string = '';
 
   constructor(
     private activedRoute: ActivatedRoute,
@@ -26,6 +27,7 @@ export class CategoriesComponent implements OnInit {
       this.ads.categorie = params.categorie;
       this.getAllCategorie(this.ads.categorie);
     });
+    this.getTitleSearch();
   }
 
   getAllCategorie(categorie: string) {
@@ -37,5 +39,11 @@ export class CategoriesComponent implements OnInit {
   viewDetail(ad: Ad) {
     this.ad = ad;
     this.adsSvc.updateVistas(ad);
+  }
+
+  getTitleSearch() {
+    this.adsSvc.searchTitleObservable.subscribe((title) => {
+      this.title = title;
+    });
   }
 }

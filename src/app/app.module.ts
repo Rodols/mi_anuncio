@@ -25,6 +25,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
 import { AuthService } from './services/auth.service';
 import { CanAdminGuard } from './guards/can-admin.guard';
 import { FilterAdsPipe } from './pipes/filter-ads.pipe';
+import { NavbarSimpleComponent } from './components/navbar-simple/navbar-simple.component';
+import { FilterCategoriesPipe } from './pipes/filter-categories.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { FilterAdsPipe } from './pipes/filter-ads.pipe';
     AdsListComponent,
     CategoriesComponent,
     FilterAdsPipe,
+    NavbarSimpleComponent,
+    FilterCategoriesPipe,
   ],
   imports: [
     BrowserModule,
