@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AdService } from 'src/app/services/ad.service';
 import { Ad } from 'src/app/Models/ad.interface';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -39,16 +39,17 @@ export class AdComponent implements OnInit {
   public searchControl: FormControl;
 
   adForm = new FormGroup({
-    title: new FormControl(''),
-    direction: new FormControl(''),
-    description: new FormControl(''),
+    title: new FormControl('', [Validators.required]),
+    direction: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
     email: new FormControl(''),
-    phone: new FormControl(''),
+    facebook: new FormControl(''),
+    phone: new FormControl('', [Validators.required]),
     web: new FormControl(''),
-    categorie: new FormControl(''),
-    image: new FormControl(''),
-    latitud: new FormControl(''),
-    longitud: new FormControl(''),
+    categorie: new FormControl('', [Validators.required]),
+    image: new FormControl('', [Validators.required]),
+    latitud: new FormControl('', [Validators.required]),
+    longitud: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -91,7 +92,7 @@ export class AdComponent implements OnInit {
     const { title } = this.adForm.value;
     const { direction } = this.adForm.value;
     const { description } = this.adForm.value;
-    const { email } = this.adForm.value;
+    const { facebook } = this.adForm.value;
     const { phone } = this.adForm.value;
     const { web } = this.adForm.value;
     const { categorie } = this.adForm.value;
@@ -102,13 +103,17 @@ export class AdComponent implements OnInit {
     ad.description = description;
     ad.latitud = this.lat;
     ad.longitud = this.lng;
-    ad.email = email;
+    ad.facebook = facebook;
     ad.phone = phone;
     ad.categorie = categorie;
     ad.web = web;
     ad.vistas = 0;
     ad.banner = false;
-    this.upLoad(ad);
+    if (this.adForm.valid) {
+      this.upLoad(ad);
+    } else {
+      window.alert('Formulario no valido revisa tus datos ingresado');
+    }
   }
 
   getAllCategories() {
@@ -125,5 +130,30 @@ export class AdComponent implements OnInit {
   upLoad(ad: Ad) {
     this.adSv.onUpLoadImage(this.file, ad);
     this.adForm.reset();
+  }
+
+  get title() {
+    return this.adForm.get('title');
+  }
+  get categorie() {
+    return this.adForm.get('categorie');
+  }
+  get phone() {
+    return this.adForm.get('phone');
+  }
+  get description() {
+    return this.adForm.get('description');
+  }
+  get latitud() {
+    return this.adForm.get('latitud');
+  }
+  get longitud() {
+    return this.adForm.get('longitud');
+  }
+  get image() {
+    return this.adForm.get('image');
+  }
+  get direction() {
+    return this.adForm.get('direction');
   }
 }

@@ -4,6 +4,7 @@
       <th scope="col">Anuncio</th>
       <th scope="col">Contacto</th>
       <th scope="col">Categoria</th>
+      <th scope="col">Banner</th>
       <th>Imagen</th>
       <th></th>
     </tr>
@@ -18,19 +19,22 @@
         <span class="contacto">Celular:</span> {{ ad.phone }} <br />
         <span class="contacto">Dirección:</span> {{ ad.direction }} <br />
         <span class="contacto">Pagina:</span> {{ ad.web }} <br />
-        <span class="contacto">Email:</span> {{ ad.email }}
+        <span class="contacto">Facebook:</span> {{ ad.facebook }}
       </td>
       <td>{{ ad.categorie }}</td>
       <td>
-        <img src="{{ ad.imageUrl }}" width="100" /> <br />
         <button
           [className]="
-            ad.banner ? 'btn btn-warning mt-2' : 'btn btn-outline-warning mt-2'
+            ad.banner ? 'btn btn-success mt-2' : 'btn btn-outline-danger mt-2'
           "
           (click)="bannerUpdateState(ad)"
         >
-          Banner
+          <fa-icon *ngIf="ad.banner" [icon]="faCheckCircle"></fa-icon>
+          <fa-icon *ngIf="!ad.banner" [icon]="faTimesCircle"></fa-icon>
         </button>
+      </td>
+      <td>
+        <img src="{{ ad.imageUrl }}" width="100" />
       </td>
       <td>
         <button class="btn btn-danger" (click)="deleteAd(ad)">Borrar</button>

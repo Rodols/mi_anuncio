@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Ad } from 'src/app/Models/ad.interface';
 import { AdService } from 'src/app/services/ad.service';
+import {
+  faCheckCircle,
+  faTimesCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-ads-list',
@@ -8,6 +12,8 @@ import { AdService } from 'src/app/services/ad.service';
   styleUrls: ['./ads-list.component.css'],
 })
 export class AdsListComponent implements OnInit {
+  faCheckCircle = faCheckCircle;
+  faTimesCircle = faTimesCircle;
   ads: Ad[];
   constructor(private adSv: AdService) {}
 

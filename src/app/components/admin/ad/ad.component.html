@@ -10,11 +10,30 @@
             class="form-control"
             formControlName="title"
             placeholder="Titulo del anuncio"
+            required
+            name="title"
+            [className]="
+              !title.errors && (title.dirty || title.touched)
+                ? 'is-valid form-control'
+                : 'is-invalid form-control'
+            "
           />
+          <div *ngIf="title.errors" class="invalid-feedback">
+            Por favor ingresa un titulo.
+          </div>
         </div>
         <div class="col form-group">
           <label>Categoria</label>
-          <select class="form-control" formControlName="categorie">
+          <select
+            name="categorie"
+            class="form-control"
+            formControlName="categorie"
+            [className]="
+              !categorie.errors && (categorie.dirty || categorie.touched)
+                ? 'is-valid form-control'
+                : 'is-invalid form-control'
+            "
+          >
             <option
               [value]="categorie.name"
               *ngFor="let categorie of categories"
@@ -22,15 +41,28 @@
               {{ categorie.name }}
             </option>
           </select>
+          <div *ngIf="categorie.errors" class="invalid-feedback">
+            Por favor selecciona una categoria.
+          </div>
         </div>
       </div>
+
       <div class="form-group">
         <label>Descripción</label>
         <textarea
           class="form-control"
           formControlName="description"
           rows="3"
+          required
+          [className]="
+            !description.errors && (description.dirty || description.touched)
+              ? 'is-valid form-control'
+              : 'is-invalid form-control'
+          "
         ></textarea>
+        <div *ngIf="description.errors" class="invalid-feedback">
+          Por favor escribe una descripcion.
+        </div>
       </div>
       <div class="form-group">
         <label>Imagen</label>
@@ -41,6 +73,9 @@
           accept=".png, .jpg, .mp4"
           class="form-control-file"
           (change)="onUploadImg($event)"
+          [className]="
+            !image.errors ? 'is-valid form-control' : 'is-invalid form-control'
+          "
         />
         <div *ngIf="file" class="mt-2">
           <div
@@ -59,41 +94,60 @@
       </div>
       <div class="row">
         <div class="col form-group">
-          <label>Correo electrónico</label>
-          <input
-            type="email"
-            class="form-control"
-            formControlName="email"
-            placeholder="Email"
-          />
-        </div>
-        <div class="col form-group">
-          <label>Phone</label>
-          <input
-            type="text"
-            class="form-control"
-            formControlName="phone"
-            placeholder="Numero de telefono"
-          />
-        </div>
-      </div>
-      <div class="row">
-        <div class="col form-group">
-          <label>Direccion</label>
+          <label>Dirección</label>
           <input
             type="text"
             class="form-control"
             formControlName="direction"
-            placeholder="Direccion"
+            placeholder="Dirección"
+            [className]="
+              !direction.errors
+                ? 'is-valid form-control'
+                : 'is-invalid form-control'
+            "
+          />
+          <div *ngIf="direction.errors" class="invalid-feedback">
+            Por favor ingresa una dirección.
+          </div>
+        </div>
+        <div class="col form-group">
+          <label>Teléfono</label>
+          <input
+            required
+            type="text"
+            class="form-control"
+            formControlName="phone"
+            placeholder="Numero de teléfono"
+            [className]="
+              !phone.errors && (phone.dirty || phone.touched)
+                ? 'is-valid form-control'
+                : 'is-invalid form-control'
+            "
+          />
+          <div *ngIf="phone.errors" class="invalid-feedback">
+            Por favor ingresa un número telefónico.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col form-group">
+          <label>Facebook</label>
+          <input
+            required
+            type="text"
+            class="form-control"
+            formControlName="facebook"
+            placeholder="Ingresa tu link a facebook"
           />
         </div>
         <div class="col form-group">
           <label>Pagina web</label>
           <input
+            required
             type="text"
             class="form-control"
             formControlName="web"
-            placeholder="Direccion de pagina web"
+            placeholder="Ingresa tu link a tu pagina web"
           />
         </div>
       </div>
@@ -131,6 +185,7 @@
           <label>Longitud</label>
           <input
             type="text"
+            required
             class="form-control"
             formControlName="longitud"
             placeholder="Longitud"
@@ -141,9 +196,10 @@
           <label>Latitud</label>
           <input
             type="text"
+            required
             class="form-control"
             formControlName="latitud"
-            placeholder="Direccion de pagina web"
+            placeholder="Latitud"
             [value]="lat"
           />
         </div>
