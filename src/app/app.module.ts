@@ -27,6 +27,7 @@ import { CanAdminGuard } from './guards/can-admin.guard';
 import { FilterAdsPipe } from './pipes/filter-ads.pipe';
 import { NavbarSimpleComponent } from './components/navbar-simple/navbar-simple.component';
 import { FilterCategoriesPipe } from './pipes/filter-categories.pipe';
+import { AvisoPrivacidadComponent } from './components/aviso-privacidad/aviso-privacidad.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { FilterCategoriesPipe } from './pipes/filter-categories.pipe';
     FilterAdsPipe,
     NavbarSimpleComponent,
     FilterCategoriesPipe,
+    AvisoPrivacidadComponent,
   ],
   imports: [
     BrowserModule,
