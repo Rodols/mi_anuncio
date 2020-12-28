@@ -1,4 +1,4 @@
-<section *ngIf="ads[0]; else notAds">
+<section *ngIf="ads?.length > 0; else notAds">
   <hr class="mt-4" />
   <form>
     <div class="form-inline mt-4">
@@ -59,6 +59,6 @@
 <ng-template #notAds>
   <div class="load">
     <div class="loader"></div>
-    <h3>Cargando...</h3>
+    <h3>Buscando anuncios...</h3>
   </div>
 </ng-template>

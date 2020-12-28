@@ -1,23 +1,23 @@
-<section *ngIf="categories; else loading">
-  <div class="card">
-    <div class="card-body">
-      <h3 class="text-center">Crear categoria</h3>
-      <form [formGroup]="categorieForm" (ngSubmit)="createCategorie()">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Categoria</label>
-          <input
-            type="text-area"
-            class="form-control"
-            formControlName="categorie"
-            placeholder="Nombre de la categoria"
-          />
-        </div>
-        <button class="btn btn-primary btn-long btn-block">
-          Crear categoria
-        </button>
-      </form>
-    </div>
+<div class="card">
+  <div class="card-body">
+    <h3 class="text-center">Crear categoria</h3>
+    <form [formGroup]="categorieForm" (ngSubmit)="createCategorie()">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Categoria</label>
+        <input
+          type="text-area"
+          class="form-control"
+          formControlName="categorie"
+          placeholder="Nombre de la categoria"
+        />
+      </div>
+      <button class="btn btn-primary btn-long btn-block">
+        Crear categoria
+      </button>
+    </form>
   </div>
+</div>
+<section *ngIf="categories?.length > 0; else loading">
   <table class="table table-hover table-fixed mt-2">
     <thead class="thead-dark">
       <tr>
@@ -41,6 +41,6 @@
 <ng-template #loading>
   <div class="load">
     <div class="loader"></div>
-    <h3>Cargando...</h3>
+    <h3>Buscando Categorias</h3>
   </div>
 </ng-template>

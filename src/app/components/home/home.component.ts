@@ -47,8 +47,7 @@ export class HomeComponent implements OnInit {
   ad: Ad;
   numberAds = 0;
   cont = 0;
-  //Mapas
-  @ViewChild('search')
+
   public searchElementRef: ElementRef;
 
   zoom = 18;

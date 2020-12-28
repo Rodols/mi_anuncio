@@ -14,7 +14,7 @@ export class CanAdminGuard implements CanActivate {
       take(1),
       map((user) => user && this.authSvc.isAdmin(user)),
       tap((canAdmin) => {
-        console.log(canAdmin);
+        // console.log(canAdmin);
         if (!canAdmin) {
           this.router.navigate(['/home']);
         }

@@ -23,12 +23,11 @@ export interface Categorie {
   styleUrls: ['./ad.component.css'],
 })
 export class AdComponent implements OnInit {
-  categories: Categorie[];
+  categories: Categorie[] = [];
   file: FileItem;
 
   //Mapas
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  @ViewChild('search') searchElementRef: ElementRef;
   zoom = 18;
   lat = 51.678418;
   lng = 7.809007;
