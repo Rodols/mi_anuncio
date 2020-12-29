@@ -47,8 +47,8 @@ export class AdComponent implements OnInit {
     web: new FormControl(''),
     categorie: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),
-    latitud: new FormControl('', [Validators.required]),
-    longitud: new FormControl('', [Validators.required]),
+    latitud: new FormControl(''),
+    longitud: new FormControl(''),
   });
 
   constructor(

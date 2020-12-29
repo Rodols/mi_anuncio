@@ -65,6 +65,7 @@
       </div>
       <div class="modal-body">
         <p>{{ ad.description }}</p>
+        <p><fa-icon [icon]="faPhone"></fa-icon> {{ ad.phone }}</p>
         <a
           *ngIf="ad.web != '' && ad.web != null"
           target="_blank"

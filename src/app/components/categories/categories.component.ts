@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Ad } from 'src/app/Models/ad.interface';
 import { AdService } from 'src/app/services/ad.service';
-import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMapMarkerAlt,
+  faPhoneVolume,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-categories',
@@ -11,6 +14,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class CategoriesComponent implements OnInit {
   faMarker = faMapMarkerAlt;
+  faPhone = faPhoneVolume;
   ads: { categorie: string };
   adList: Ad[] = [];
   ad: Ad;
